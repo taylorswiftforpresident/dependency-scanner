@@ -1,0 +1,28 @@
+name: 'GitHub Action Security Scanner'
+description: 'Scan GitHub Actions workflows for vulnerabilities and security issues'
+
+inputs:
+  workflow-file:
+    description: 'Path to the workflow file to scan'
+    required: true
+  strict:
+    description: 'Enable strict mode for enhanced security checks'
+    required: false
+    default: 'false'
+  config-file:
+    description: 'Path to custom configuration file'
+    required: false
+    default: '.github/gh-action-security-config.yaml'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.workflow-file }}
+    - ${{ inputs.strict == 'true' && '--strict' || '' }}
+    - --config
+    - ${{ inputs.config-file }}
+
+branding:
+  icon: 'shield'
+  color: 'blue'
