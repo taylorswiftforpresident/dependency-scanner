@@ -1,5 +1,5 @@
 [package]
-name = "dependency-scanner"
+name = "gh-action-security-scanner"
 version = "0.1.0"
 edition = "2024"
 description = "A GitHub Action that scans workflow dependencies in workflows for vulnerabilities"

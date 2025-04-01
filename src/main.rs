@@ -16,6 +16,9 @@ struct Opt {
     
     #[structopt(long)]
     strict: bool,
+    
+    #[structopt(long, default_value = "critical_dependencies.yaml")]
+    config: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -110,7 +113,7 @@ impl ActionRef {
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let opt = Opt::from_args();
-    let config = load_config("critical_dependencies.yaml")?;
+    let config = load_config(&opt.config)?;
     
     let client = Client::builder()
         .user_agent("github-action-security-scanner")

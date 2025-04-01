@@ -8,11 +8,10 @@ if [ "$2" = "--strict" ]; then
   ARGS="$ARGS --strict"
 fi
 
+CONFIG_PATH="critical_dependencies.yaml"
 if [ "$3" = "--config" ] && [ -n "$4" ]; then
-  # Copy the config file to the expected location
-  mkdir -p $(dirname critical_dependencies.yaml)
-  cp "$4" critical_dependencies.yaml
+  CONFIG_PATH="$4"
 fi
 
-# Run the scanner
-gh-action-security-scanner $ARGS "$1"
+# Run the scanner with appropriate arguments
+gh-action-security-scanner "$1" $ARGS --config "$CONFIG_PATH"
